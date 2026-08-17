@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "d7e8d21a-dd19-4f8e-9fb5-884dca3dcc37",
+		"name": "localhost:5000",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47171698",
+		"_collection_link": "https://navigation-technologist-26399353-6733100.postman.co/workspace/Hasaan-Ahmad's-Workspace~5bcf50c3-5718-40b4-823a-a77a1be5aae4/collection/47171698-d7e8d21a-dd19-4f8e-9fb5-884dca3dcc37?action=share&source=collection_link&creator=47171698"
+	},
+	"item": [
+		{
+			"name": "/get_columns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_columns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_columns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/upload_csv",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/upload_csv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"upload_csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/plot",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x_column\": \"Year\",\r\n  \"y_column\": \"Sales\",\r\n  \"graph_type\": \"line\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/plot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"plot"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
