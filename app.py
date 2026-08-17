@@ -249,37 +249,37 @@ def run_forecast():
         forecast = result.forecast(steps=steps)
         forecast.index = test.index
         
-        # Plot styling for dark-mode premium interface
+        # Plot styling for light-mode premium interface
         plt.clf()
         fig = plt.figure(figsize=(10, 5))
-        fig.patch.set_facecolor('#0b0f19')
+        fig.patch.set_facecolor('#ffffff')
         
         ax = plt.gca()
-        ax.set_facecolor('#111827')
+        ax.set_facecolor('#ffffff')
         
         # Draw curves
-        plt.plot(train.index, train[value_col], label="Historical (Train)", color="#38bdf8", linewidth=2.5)
-        plt.plot(test.index, test[value_col], label="Actual (Test)", color="#34d399", linewidth=2.5)
-        plt.plot(forecast.index, forecast, label="Predicted (Forecast)", color="#fbbf24", linestyle="--", linewidth=2.5)
+        plt.plot(train.index, train[value_col], label="Historical (Train)", color="#2563eb", linewidth=2.5)
+        plt.plot(test.index, test[value_col], label="Actual (Test)", color="#10b981", linewidth=2.5)
+        plt.plot(forecast.index, forecast, label="Predicted (Forecast)", color="#7c3aed", linestyle="--", linewidth=2.5)
         
         # Style layout
-        ax.spines['bottom'].set_color('#374151')
-        ax.spines['top'].set_color('#374151')
-        ax.spines['left'].set_color('#374151')
-        ax.spines['right'].set_color('#374151')
-        ax.tick_params(colors='#9ca3af')
-        ax.xaxis.label.set_color('#f3f4f6')
-        ax.yaxis.label.set_color('#f3f4f6')
+        ax.spines['bottom'].set_color('#cbd5e1')
+        ax.spines['top'].set_color('#cbd5e1')
+        ax.spines['left'].set_color('#cbd5e1')
+        ax.spines['right'].set_color('#cbd5e1')
+        ax.tick_params(colors='#475569')
+        ax.xaxis.label.set_color('#0f172a')
+        ax.yaxis.label.set_color('#0f172a')
         
         plt.xlabel("Date")
         plt.ylabel(str(value_col))
-        plt.title(f"SARIMAX Forecast vs Actual for {value_col}", fontsize=14, color="#f3f4f6", pad=15)
+        plt.title(f"SARIMAX Forecast vs Actual for {value_col}", fontsize=14, color="#0f172a", pad=15)
         
-        legend = plt.legend(facecolor='#1f2937', edgecolor='#374151')
+        legend = plt.legend(facecolor='#ffffff', edgecolor='#e2e8f0')
         for text in legend.get_texts():
-            text.set_color('#f3f4f6')
+            text.set_color('#334155')
             
-        plt.grid(True, linestyle=":", alpha=0.3, color="#4b5563")
+        plt.grid(True, linestyle=":", alpha=0.6, color="#cbd5e1")
         plt.tight_layout()
         
         forecast_path = os.path.join(app.config['STATIC_FOLDER'], 'forecast.png')

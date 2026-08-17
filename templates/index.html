@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DATA CONSOLE - Advanced Analytics</title>
+    <title>Analytics Console - Dashboard</title>
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #05070f;
-            --panel-bg: rgba(10, 14, 26, 0.95);
-            --border-color: #1a233d;
-            --accent-cyan: #00f0ff;
-            --accent-cyan-dim: rgba(0, 240, 255, 0.25);
-            --accent-purple: #bd5af2;
-            --accent-purple-dim: rgba(189, 90, 242, 0.25);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --neon-green: #39ff14;
-            --neon-red: #ff3b30;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-sans: 'Outfit', sans-serif;
-            --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-color: #f8fafc;
+            --panel-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-blue-dim: rgba(37, 99, 235, 0.08);
+            --accent-purple: #7c3aed;
+            --accent-purple-hover: #6d28d9;
+            --accent-purple-dim: rgba(124, 58, 237, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --success-dim: rgba(16, 185, 129, 0.1);
+            --danger: #ef4444;
+            --danger-dim: rgba(239, 68, 68, 0.1);
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 40px -5px rgba(0, 0, 0, 0.08), 0 10px 15px -6px rgba(0, 0, 0, 0.08);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -36,240 +41,214 @@
         body {
             background-color: var(--bg-color);
             background-image: 
-                linear-gradient(rgba(16, 24, 48, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(16, 24, 48, 0.3) 1px, transparent 1px);
-            background-size: 30px 30px;
-            background-position: center;
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.04) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.03) 0px, transparent 50%);
             background-attachment: fixed;
             color: var(--text-primary);
-            font-family: var(--font-mono);
-            font-size: 13px;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             padding-bottom: 60px;
-            letter-spacing: -0.2px;
         }
 
-        /* Top Technical bar */
+        h1, h2, h3, h4, .brand-title {
+            font-family: 'Outfit', sans-serif;
+        }
+
         header {
-            border-bottom: 2px solid var(--border-color);
-            background: rgba(5, 7, 15, 0.9);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 40px;
+            background: var(--panel-bg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
             position: sticky;
             top: 0;
             z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .brand-logo {
-            border: 1px solid var(--accent-cyan);
-            padding: 4px 8px;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            text-shadow: 0 0 8px var(--accent-cyan-dim);
-            font-size: 14px;
+        .brand-icon {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
         }
 
         .brand-title {
-            font-family: var(--font-sans);
-            font-size: 18px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .sys-status {
+        .status-pill {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 11px;
+            background: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
             color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--neon-green);
-            box-shadow: 0 0 8px var(--neon-green);
+            width: 6px;
+            height: 6px;
+            background-color: var(--success);
+            border-radius: 50%;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
         }
 
         .main-container {
-            max-width: 1350px;
-            margin: 30px auto;
+            max-width: 1250px;
+            margin: 40px auto 0 auto;
             padding: 0 20px;
         }
 
-        /* Tabs styled as console links */
-        .console-tabs {
+        /* Tabs styled cleanly */
+        .navigation-tabs {
             display: flex;
-            gap: 4px;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1px;
+            gap: 6px;
+            background: #e2e8f0;
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            max-width: fit-content;
         }
 
         .tab-btn {
             background: transparent;
-            border: 1px solid var(--border-color);
-            border-bottom: none;
+            border: none;
             color: var(--text-secondary);
-            padding: 12px 24px;
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            position: relative;
-            top: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .tab-btn:hover {
             color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.02);
         }
 
         .tab-btn.active {
-            color: var(--accent-cyan);
-            border-color: var(--accent-cyan) var(--border-color) var(--bg-color) var(--border-color);
-            border-width: 2px 1px 1px 1px;
-            background: var(--bg-color);
-            z-index: 2;
-        }
-
-        .tab-btn.active::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 8px var(--accent-cyan);
+            background: var(--panel-bg);
+            color: var(--accent-blue);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .tab-btn#btn-forecast.active {
             color: var(--accent-purple);
-            border-top-color: var(--accent-purple);
         }
 
-        .tab-btn#btn-forecast.active::after {
-            background: var(--accent-purple);
-            box-shadow: 0 0 8px var(--accent-purple);
-        }
-
-        /* Technical panels */
-        .console-grid {
+        .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 25px;
-            align-items: start;
+            gap: 30px;
         }
 
-        @media (min-width: 950px) {
-            .console-grid {
-                grid-template-columns: 380px 1fr;
+        @media (min-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 360px 1fr;
             }
         }
 
-        .console-panel {
+        .dashboard-card {
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
-            padding: 24px;
-            position: relative;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
-        /* Decorative bracket/corner lines to make it look like a technical screen */
-        .console-panel::before, .console-panel::after {
-            content: "";
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-color: var(--accent-cyan);
-            border-style: solid;
-            pointer-events: none;
+        .dashboard-card:hover {
+            box-shadow: var(--shadow-hover);
         }
 
-        .console-panel.forecast-panel::before, .console-panel.forecast-panel::after {
-            border-color: var(--accent-purple);
+        .card-header {
+            margin-bottom: 24px;
         }
 
-        .console-panel::before {
-            top: -1px;
-            left: -1px;
-            border-width: 1px 0 0 1px;
-        }
-
-        .console-panel::after {
-            bottom: -1px;
-            right: -1px;
-            border-width: 0 1px 1px 0;
-        }
-
-        .panel-heading {
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .panel-title {
-            font-size: 14px;
+        .card-title {
+            font-size: 18px;
             font-weight: 700;
-            text-transform: uppercase;
             color: var(--text-primary);
+            margin-bottom: 6px;
         }
 
-        .panel-tag {
-            font-size: 9px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2px 6px;
-            border-radius: 2px;
+        .card-desc {
+            font-size: 13px;
             color: var(--text-secondary);
+            line-height: 1.5;
         }
 
-        /* File Upload Zone - Tech design */
-        .upload-container {
+        /* Controls / Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .drag-upload-box {
             position: relative;
             width: 100%;
-            height: 120px;
-            border: 1px dashed var(--border-color);
-            background: rgba(255, 255, 255, 0.01);
+            height: 130px;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: var(--transition);
-            margin-bottom: 20px;
+            padding: 20px;
+            background: #fafafb;
         }
 
-        .upload-container:hover, .upload-container.dragover {
-            background: rgba(0, 240, 255, 0.03);
-            border-color: var(--accent-cyan);
+        .drag-upload-box:hover, .drag-upload-box.dragover {
+            border-color: var(--accent-blue);
+            background: var(--accent-blue-dim);
         }
 
-        .upload-container.forecast-drop:hover, .upload-container.forecast-drop.dragover {
-            background: rgba(189, 90, 242, 0.03);
+        .forecast-drop:hover, .forecast-drop.dragover {
             border-color: var(--accent-purple);
+            background: var(--accent-purple-dim);
         }
 
-        .upload-container input[type="file"] {
+        .drag-upload-box input[type="file"] {
             position: absolute;
             top: 0;
             left: 0;
@@ -279,246 +258,245 @@
             cursor: pointer;
         }
 
-        .upload-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-align: center;
-            line-height: 1.6;
+        .upload-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--accent-blue);
         }
 
-        .upload-btn-text {
-            color: var(--accent-cyan);
-            text-decoration: underline;
-        }
-
-        .forecast-drop .upload-btn-text {
+        .forecast-drop .upload-icon {
             color: var(--accent-purple);
         }
 
-        .file-badge {
+        .upload-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .upload-text span {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .forecast-drop .upload-text span {
+            color: var(--accent-purple);
+        }
+
+        .file-status-badge {
             margin-top: 8px;
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--accent-cyan);
-            padding: 3px 10px;
+            background: #f1f5f9;
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
             font-size: 11px;
-            border: 1px solid rgba(0, 240, 255, 0.2);
+            font-weight: 500;
+            border: 1px solid var(--border-color);
             display: none;
             word-break: break-all;
         }
 
-        .forecast-drop .file-badge {
-            background: rgba(189, 90, 242, 0.1);
-            color: var(--accent-purple);
-            border-color: rgba(189, 90, 242, 0.2);
-        }
-
-        /* Inputs */
-        .control-group {
-            margin-bottom: 20px;
-        }
-
-        .control-label {
-            display: block;
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .terminal-select {
+        .select-field {
             width: 100%;
-            background: #090d1a;
+            background: var(--panel-bg);
             border: 1px solid var(--border-color);
-            border-radius: 0;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 10px 12px;
             color: var(--text-primary);
-            font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 500;
             outline: none;
             transition: var(--transition);
         }
 
-        .terminal-select:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+        .select-field:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .forecast-panel .terminal-select:focus {
+        .forecast-panel .select-field:focus {
             border-color: var(--accent-purple);
-            box-shadow: 0 0 8px rgba(189, 90, 242, 0.2);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
         }
 
-        .terminal-select option {
-            background: #05070f;
-            color: var(--text-primary);
-        }
-
-        .console-btn {
+        .action-button {
             width: 100%;
-            background: transparent;
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            font-family: var(--font-mono);
-            font-weight: 700;
-            text-transform: uppercase;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
             padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .console-btn:hover {
-            background: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        .action-button:hover {
+            background: var(--accent-blue-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
         }
 
-        .console-btn.purple-btn {
-            border-color: var(--accent-purple);
-            color: var(--accent-purple);
+        .action-button.purple-btn {
+            background: var(--accent-purple);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
         }
 
-        .console-btn.purple-btn:hover {
-            background: rgba(189, 90, 242, 0.1);
-            box-shadow: 0 0 10px rgba(189, 90, 242, 0.2);
+        .action-button.purple-btn:hover {
+            background: var(--accent-purple-hover);
+            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
         }
 
-        .console-btn:disabled {
-            border-color: var(--border-color);
-            color: var(--text-secondary);
-            background: transparent;
+        .action-button:disabled {
+            background: #cbd5e1;
+            color: #94a3b8;
             cursor: not-allowed;
+            transform: none;
             box-shadow: none;
         }
 
-        /* Output / Display Panels */
-        .display-container {
+        /* Result Area */
+        .results-container {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px;
         }
 
-        .viewer-card {
-            background: var(--panel-bg);
+        .chart-box {
+            position: relative;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
-            padding: 15px;
+            background: var(--panel-bg);
+            padding: 16px;
             min-height: 380px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
-        .viewer-card img {
+        .chart-box img {
             max-width: 100%;
             height: auto;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
         }
 
-        .viewer-placeholder {
-            text-align: center;
+        .placeholder-box {
             color: var(--text-secondary);
+            text-align: center;
+            padding: 40px;
         }
 
-        .viewer-placeholder-icon {
-            font-size: 32px;
-            color: var(--border-color);
+        .placeholder-icon {
+            font-size: 36px;
+            color: var(--text-muted);
             margin-bottom: 12px;
         }
 
-        /* Tech stats table */
-        .metrics-card {
+        /* Metrics & Validation Table */
+        .table-panel {
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
-            padding: 24px;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
         }
 
-        .tech-grid {
+        .summary-stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .tech-metric {
-            background: rgba(255, 255, 255, 0.01);
+        .summary-item {
+            background: #fafafb;
             border: 1px solid var(--border-color);
+            border-radius: 10px;
             padding: 12px 16px;
         }
 
-        .tech-metric-label {
-            font-size: 10px;
+        .summary-label {
+            font-size: 11px;
             color: var(--text-secondary);
             text-transform: uppercase;
+            font-weight: 600;
             margin-bottom: 4px;
         }
 
-        .tech-metric-value {
-            font-size: 20px;
+        .summary-value {
+            font-size: 22px;
             font-weight: 700;
             color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
         }
 
-        .terminal-table-container {
+        .table-scroller {
             overflow-x: auto;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
         }
 
-        .terminal-table {
+        .data-table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 12px;
+            font-size: 13px;
         }
 
-        .terminal-table th {
-            background: rgba(15, 23, 42, 0.6);
+        .data-table th {
+            background: #f8fafc;
             color: var(--text-primary);
-            padding: 10px 14px;
-            border-bottom: 2px solid var(--border-color);
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-
-        .terminal-table td {
+            font-weight: 600;
             padding: 10px 14px;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #f1f5f9;
             color: var(--text-secondary);
         }
 
-        .terminal-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
+        .data-table tr:hover td {
+            background: #f8fafc;
             color: var(--text-primary);
         }
 
-        .cell-badge {
-            padding: 2px 6px;
-            border-radius: 0;
-            font-size: 10px;
+        .status-badge {
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
         }
 
-        .cell-badge-act {
-            background: rgba(57, 255, 20, 0.1);
-            color: var(--neon-green);
-            border: 1px solid rgba(57, 255, 20, 0.2);
+        .status-badge-act {
+            background: var(--success-dim);
+            color: var(--success);
         }
 
-        .cell-badge-fore {
-            background: rgba(189, 90, 242, 0.1);
+        .status-badge-fore {
+            background: var(--accent-purple-dim);
             color: var(--accent-purple);
-            border: 1px solid rgba(189, 90, 242, 0.2);
         }
 
-        /* Loading / Processing screen overlay */
-        .process-overlay {
+        /* Glass loading overlay */
+        .loading-curtain {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(5, 7, 15, 0.95);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -527,59 +505,48 @@
             z-index: 10;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.25s ease;
         }
 
-        .process-overlay.active {
+        .loading-curtain.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .pulse-bar {
-            width: 200px;
-            height: 4px;
-            background: var(--border-color);
-            overflow: hidden;
-            position: relative;
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 0, 0, 0.05);
+            border-top: 3px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
 
-        .pulse-bar::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100px;
-            width: 100px;
-            height: 100%;
-            background: var(--accent-cyan);
-            animation: sweep 1.5s infinite linear;
-            box-shadow: 0 0 8px var(--accent-cyan);
+        .loading-spinner.forecast-spin {
+            border-top-color: var(--accent-purple);
         }
 
-        .pulse-bar.purple-sweep::after {
-            background: var(--accent-purple);
-            box-shadow: 0 0 8px var(--accent-purple);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        @keyframes sweep {
-            0% { left: -100px; }
-            100% { left: 200px; }
-        }
-
-        .process-text {
-            font-size: 11px;
+        .loading-message {
+            font-size: 13px;
             color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 600;
         }
 
-        .terminal-alert {
-            background: rgba(255, 59, 48, 0.08);
-            border: 1px solid var(--neon-red);
-            color: #ffa59e;
+        .alert-bar {
+            background: var(--danger-dim);
+            border: 1px solid var(--danger);
+            color: var(--danger);
             padding: 12px 18px;
-            font-size: 12px;
+            border-radius: 8px;
+            font-size: 13px;
             margin-bottom: 20px;
             display: none;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -587,181 +554,180 @@
 
     <header>
         <div class="brand-container">
-            <div class="brand-logo">[▲] SYSTEM</div>
-            <div class="brand-title">Data Console</div>
+            <div class="brand-icon">📈</div>
+            <div class="brand-title">Analytics Console</div>
         </div>
-        <div class="sys-status">
+        <div class="status-pill">
             <div class="status-dot"></div>
-            <span>ANALYZER ONLINE</span>
+            <span>SERVER ONLINE</span>
         </div>
     </header>
 
     <div class="main-container">
-        <!-- Tabbed selection -->
-        <div class="console-tabs">
+        <!-- Tab navigation -->
+        <div class="navigation-tabs">
             <button class="tab-btn active" id="btn-plotter" onclick="switchTab('plotter')">
-                01 // DATA PLOTTER
+                📊 Data Plotter
             </button>
             <button class="tab-btn" id="btn-forecast" onclick="switchTab('forecast')">
-                02 // TIME SERIES FORECASTER
+                🔮 Time Series Forecast
             </button>
         </div>
 
-        <div class="terminal-alert" id="error-box"></div>
+        <div class="alert-bar" id="error-box"></div>
 
-        <div class="console-grid">
-            <!-- Left panel: Parameters -->
+        <div class="dashboard-grid">
+            <!-- Left Panel: Configurations -->
             
-            <!-- PLOTTER PARAMETERS -->
-            <div class="console-panel" id="controls-plotter">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Data Plotter</h2>
-                    <span class="panel-tag">PLT-01</span>
+            <!-- PLOTTER CONTROLS -->
+            <div class="dashboard-card" id="controls-plotter">
+                <div class="card-header">
+                    <h2 class="card-title">CSV Graph Plotter</h2>
+                    <p class="card-desc">Upload a CSV file, map columns to horizontal and vertical coordinates, and generate graphical reports.</p>
                 </div>
 
                 <form id="plot-form" action="/" method="POST" enctype="multipart/form-data">
-                    <div class="control-group">
-                        <label class="control-label">Load CSV Input</label>
-                        <div class="upload-container" id="drop-zone-plotter">
-                            <div class="upload-label">
-                                Drag & drop CSV file or<br>
-                                <span class="upload-btn-text">browse files</span>
+                    <div class="form-group">
+                        <label class="form-label">Upload Dataset (CSV)</label>
+                        <div class="drag-upload-box" id="drop-zone-plotter">
+                            <span class="upload-icon">📥</span>
+                            <div class="upload-text">
+                                Drag & drop file or <span>browse</span>
                             </div>
                             <input type="file" name="file" id="file-input-plotter" accept=".csv" required>
-                            <span class="file-badge" id="badge-plotter">No file selected</span>
+                            <span class="file-status-badge" id="badge-plotter">No file selected</span>
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Dimension X (Horizontal)</label>
-                        <select class="terminal-select" name="x_col" id="x-axis-select">
+                    <div class="form-group">
+                        <label class="form-label">X-Axis Column</label>
+                        <select class="select-field" name="x_col" id="x-axis-select">
                             <option value="">(Upload file first)</option>
                         </select>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Dimension Y (Vertical)</label>
-                        <select class="terminal-select" name="y_col" id="y-axis-select">
+                    <div class="form-group">
+                        <label class="form-label">Y-Axis Column</label>
+                        <select class="select-field" name="y_col" id="y-axis-select">
                             <option value="">(Upload file first)</option>
                         </select>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Visual Representation</label>
-                        <select class="terminal-select" name="plot_type" id="plot-type-select" required>
-                            <option value="line" {% if selected_plot == 'line' %}selected{% endif %}>LINE GRAPH</option>
-                            <option value="bar" {% if selected_plot == 'bar' %}selected{% endif %}>BAR CHART</option>
-                            <option value="scatter" {% if selected_plot == 'scatter' %}selected{% endif %}>SCATTER PLOT</option>
+                    <div class="form-group">
+                        <label class="form-label">Chart Rendering Type</label>
+                        <select class="select-field" name="plot_type" id="plot-type-select" required>
+                            <option value="line" {% if selected_plot == 'line' %}selected{% endif %}>Line Chart</option>
+                            <option value="bar" {% if selected_plot == 'bar' %}selected{% endif %}>Bar Chart</option>
+                            <option value="scatter" {% if selected_plot == 'scatter' %}selected{% endif %}>Scatter Chart</option>
                         </select>
                     </div>
 
-                    <button type="submit" class="console-btn" id="btn-submit-plot">
-                        [ RUN VISUALIZER ]
+                    <button type="submit" class="action-button" id="btn-submit-plot">
+                        Plot Coordinates
                     </button>
                 </form>
             </div>
 
-            <!-- FORECAST PARAMETERS -->
-            <div class="console-panel forecast-panel" id="controls-forecast" style="display: none;">
-                <div class="panel-heading">
-                    <h2 class="panel-title" style="color: var(--accent-purple)">SARIMAX Forecast</h2>
-                    <span class="panel-tag">SRX-02</span>
+            <!-- FORECAST CONTROLS -->
+            <div class="dashboard-card forecast-panel" id="controls-forecast" style="display: none;">
+                <div class="card-header">
+                    <h2 class="card-title" style="color: var(--accent-purple)">SARIMAX Forecast</h2>
+                    <p class="card-desc">Fit a seasonal mathematical model on historical observations to project prospective values.</p>
                 </div>
 
                 <form id="forecast-form" onsubmit="submitForecast(event)">
-                    <div class="control-group">
-                        <label class="control-label">Load Time-Series CSV</label>
-                        <div class="upload-container forecast-drop" id="drop-zone-forecast">
-                            <div class="upload-label">
-                                Drag & drop CSV file or<br>
-                                <span class="upload-btn-text">browse files</span>
+                    <div class="form-group">
+                        <label class="form-label">Upload Observations (CSV)</label>
+                        <div class="drag-upload-box forecast-drop" id="drop-zone-forecast">
+                            <span class="upload-icon">⚡</span>
+                            <div class="upload-text">
+                                Drag & drop file or <span>browse</span>
                             </div>
                             <input type="file" id="file-input-forecast" accept=".csv">
-                            <span class="file-badge" id="badge-forecast">No file selected</span>
+                            <span class="file-status-badge" id="badge-forecast">No file selected</span>
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Temporal Axis (Date/Time)</label>
-                        <select class="terminal-select" id="date-select">
+                    <div class="form-group">
+                        <label class="form-label">Date/Time Column</label>
+                        <select class="select-field" id="date-select">
                             <option value="">(Auto-detect)</option>
                         </select>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Observation Value (Consumption)</label>
-                        <select class="terminal-select" id="value-select">
+                    <div class="form-group">
+                        <label class="form-label">Values Column</label>
+                        <select class="select-field" id="value-select">
                             <option value="">(Auto-detect)</option>
                         </select>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label">Forecast Steps</label>
-                        <select class="terminal-select" id="steps-select">
-                            <option value="7" selected>7 STEPS (WEEKLY)</option>
-                            <option value="14">14 STEPS (FORTNIGHTLY)</option>
-                            <option value="30">30 STEPS (MONTHLY)</option>
+                    <div class="form-group">
+                        <label class="form-label">Forecast Horizon</label>
+                        <select class="select-field" id="steps-select">
+                            <option value="7" selected>7 Steps (Weekly)</option>
+                            <option value="14">14 Steps (Fortnightly)</option>
+                            <option value="30">30 Steps (Monthly)</option>
                         </select>
                     </div>
 
-                    <button type="submit" class="console-btn purple-btn" id="btn-submit-forecast">
-                        [ GENERATE PREDICTIONS ]
+                    <button type="submit" class="action-button purple-btn" id="btn-submit-forecast">
+                        Train & Forecast
                     </button>
                 </form>
             </div>
 
-            <!-- Right panel: Render Results -->
-            <div class="display-container">
+            <!-- Right Panel: Visualizer Results -->
+            <div class="results-container">
                 
-                <!-- Graphic viewer -->
-                <div class="viewer-card">
-                    <!-- Progress Sweep Overlay -->
-                    <div class="process-overlay" id="spinner-overlay">
-                        <div class="pulse-bar" id="pulse-bar-elem"></div>
-                        <div class="process-text" id="spinner-text">Processing calculations...</div>
+                <!-- Display Plot -->
+                <div class="chart-box">
+                    <div class="loading-curtain" id="spinner-overlay">
+                        <div class="loading-spinner" id="loading-spinner"></div>
+                        <div class="loading-message" id="spinner-text">Rendering plot data...</div>
                     </div>
 
-                    <div class="viewer-placeholder" id="placeholder-box" {% if graph_url %}style="display:none;"{% endif %}>
-                        <div class="viewer-placeholder-icon">▲</div>
+                    <div class="placeholder-box" id="placeholder-box" {% if graph_url %}style="display:none;"{% endif %}>
+                        <div class="placeholder-icon">📊</div>
                         <div>
-                            <p style="font-weight: 700; margin-bottom: 4px; text-transform: uppercase;">No visual matrix compiled</p>
-                            <p style="font-size: 11px; color: var(--text-secondary)">Execute commands on the left panel to output graph results.</p>
+                            <h3 style="font-weight: 600; margin-bottom: 4px;">No Chart Rendered</h3>
+                            <p style="font-size: 13px; color: var(--text-secondary)">Upload data and select the configurations on the left to display results.</p>
                         </div>
                     </div>
 
-                    <img id="result-img" src="{% if graph_url %}{{ graph_url }}{% endif %}" alt="Console Output Graphic" {% if not graph_url %}style="display:none;"{% endif %}>
+                    <img id="result-img" src="{% if graph_url %}{{ graph_url }}{% endif %}" alt="Plot Result" {% if not graph_url %}style="display:none;"{% endif %}>
                 </div>
 
                 <!-- Forecast Metrics Table -->
-                <div class="metrics-card" id="forecast-results-box" style="display: none;">
-                    <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
-                        <span>//</span> Prediction Matrix Outcomes
+                <div class="table-panel" id="forecast-results-box" style="display: none;">
+                    <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <span style="color: var(--accent-purple)">🔮</span> Forecast Evaluation Summary
                     </h3>
 
-                    <div class="tech-grid">
-                        <div class="tech-metric">
-                            <div class="tech-metric-label">Regression Model</div>
-                            <div class="tech-metric-value" style="color: var(--accent-purple)">SARIMAX</div>
+                    <div class="summary-stats-grid">
+                        <div class="summary-item">
+                            <div class="summary-label">Model Pipeline</div>
+                            <div class="summary-value" style="font-size: 16px; color: var(--accent-purple)">SARIMAX (1,1,1)x(1,1,1)</div>
                         </div>
-                        <div class="tech-metric">
-                            <div class="tech-metric-label">Model Deviation (MAE)</div>
-                            <div class="tech-metric-value" id="mae-value">0.00</div>
+                        <div class="summary-item">
+                            <div class="summary-label">Mean Absolute Error (MAE)</div>
+                            <div class="summary-value" id="mae-value">0.00</div>
                         </div>
                     </div>
 
-                    <div class="terminal-table-container">
-                        <table class="terminal-table">
+                    <div class="table-scroller">
+                        <table class="data-table">
                             <thead>
                                 <tr>
                                     <th>Index Date</th>
-                                    <th>Actual Value</th>
-                                    <th>Forecasted Value</th>
+                                    <th>Observed Value</th>
+                                    <th>Predicted Value</th>
                                     <th>Abs Deviation</th>
-                                    <th>Error Pct</th>
+                                    <th>Percentage Error</th>
                                 </tr>
                             </thead>
                             <tbody id="forecast-table-body">
-                                <!-- Dynamic records -->
+                                <!-- Dynamic JS injection -->
                             </tbody>
                         </table>
                     </div>
@@ -780,7 +746,7 @@
             const btnFore = document.getElementById('btn-forecast');
             const controlsPlot = document.getElementById('controls-plotter');
             const controlsFore = document.getElementById('controls-forecast');
-            const pulse = document.getElementById('pulse-bar-elem');
+            const spinner = document.getElementById('loading-spinner');
 
             document.getElementById('error-box').style.display = 'none';
 
@@ -789,7 +755,7 @@
                 btnFore.classList.remove('active');
                 controlsPlot.style.display = 'block';
                 controlsFore.style.display = 'none';
-                pulse.classList.remove('purple-sweep');
+                spinner.classList.remove('forecast-spin');
                 
                 document.getElementById('forecast-results-box').style.display = 'none';
                 const plotImg = document.getElementById('result-img');
@@ -805,7 +771,7 @@
                 btnPlot.classList.remove('active');
                 controlsFore.style.display = 'block';
                 controlsPlot.style.display = 'none';
-                pulse.classList.add('purple-sweep');
+                spinner.classList.add('forecast-spin');
                 
                 const plotImg = document.getElementById('result-img');
                 if (plotImg.src && plotImg.src.includes('forecast.png')) {
@@ -827,7 +793,7 @@
 
             input.addEventListener('change', function() {
                 if (input.files.length > 0) {
-                    badge.innerText = `[ ${input.files[0].name} ]`;
+                    badge.innerText = input.files[0].name;
                     badge.style.display = 'inline-block';
                     handleFileUpload(input.files[0], onUploadSuccess);
                 }
@@ -847,7 +813,7 @@
                 zone.classList.remove('dragover');
                 if (e.dataTransfer.files.length > 0) {
                     input.files = e.dataTransfer.files;
-                    badge.innerText = `[ ${input.files[0].name} ]`;
+                    badge.innerText = input.files[0].name;
                     badge.style.display = 'inline-block';
                     handleFileUpload(input.files[0], onUploadSuccess);
                 }
@@ -861,7 +827,7 @@
             const errorBox = document.getElementById('error-box');
             errorBox.style.display = 'none';
             
-            showLoading(true, "Uploading data vector...");
+            showLoading(true, "Uploading dataset file...");
 
             const formData = new FormData();
             formData.append('file', file);
@@ -883,7 +849,7 @@
             })
             .catch(err => {
                 showLoading(false);
-                errorBox.innerText = `[ SIGNAL ERROR ]: ${err.message}`;
+                errorBox.innerText = `Upload Error: ${err.message}`;
                 errorBox.style.display = 'block';
             });
         }
@@ -898,13 +864,13 @@
             columns.forEach((col, idx) => {
                 const optX = document.createElement('option');
                 optX.value = col;
-                optX.innerText = col.toUpperCase();
+                optX.innerText = col;
                 if (idx === 0) optX.selected = true;
                 xSelect.appendChild(optX);
 
                 const optY = document.createElement('option');
                 optY.value = col;
-                optY.innerText = col.toUpperCase();
+                optY.innerText = col;
                 if (idx === 1 || (idx === 0 && columns.length === 1)) optY.selected = true;
                 ySelect.appendChild(optY);
             });
@@ -921,7 +887,7 @@
             columns.forEach((col) => {
                 const optDate = document.createElement('option');
                 optDate.value = col;
-                optDate.innerText = col.toUpperCase();
+                optDate.innerText = col;
                 if (col.toLowerCase().includes('date') || col.toLowerCase().includes('time') || col.toLowerCase().includes('year')) {
                     optDate.selected = true;
                 }
@@ -929,7 +895,7 @@
 
                 const optVal = document.createElement('option');
                 optVal.value = col;
-                optVal.innerText = col.toUpperCase();
+                optVal.innerText = col;
                 if (col.toLowerCase().includes('consumption') || col.toLowerCase().includes('value') || col.toLowerCase().includes('sales')) {
                     optVal.selected = true;
                 }
@@ -949,7 +915,7 @@
             const yAxis = document.getElementById('y-axis-select').value;
             const plotType = document.getElementById('plot-type-select').value;
 
-            showLoading(true, "Plotting coordinate grid...");
+            showLoading(true, "Processing chart coordinates...");
 
             fetch('/plot', {
                 method: 'POST',
@@ -973,7 +939,7 @@
             })
             .catch(err => {
                 showLoading(false);
-                errorBox.innerText = `[ PLOTTING CRITICAL ]: ${err.message}`;
+                errorBox.innerText = `Plotting Error: ${err.message}`;
                 errorBox.style.display = 'block';
             });
         });
@@ -983,7 +949,7 @@
             const errorBox = document.getElementById('error-box');
             errorBox.style.display = 'none';
 
-            showLoading(true, "Compiling SARIMAX coefficients...");
+            showLoading(true, "Calculating SARIMAX forecasting regression...");
 
             const dateCol = document.getElementById('date-select').value;
             const valCol = document.getElementById('value-select').value;
@@ -1017,10 +983,10 @@
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${row.date}</td>
-                        <td><span class="cell-badge cell-badge-act">${row.actual}</span></td>
-                        <td><span class="cell-badge cell-badge-fore">${row.forecast}</span></td>
+                        <td><span class="status-badge status-badge-act">${row.actual}</span></td>
+                        <td><span class="status-badge status-badge-fore">${row.forecast}</span></td>
                         <td>${row.error}</td>
-                        <td style="color: ${row.error_percent > 10 ? 'var(--neon-red)' : 'var(--neon-green)'}">${row.error_percent}%</td>
+                        <td style="color: ${row.error_percent > 10 ? 'var(--danger)' : 'var(--success)'}; font-weight: 600;">${row.error_percent}%</td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -1029,12 +995,12 @@
             })
             .catch(err => {
                 showLoading(false);
-                errorBox.innerText = `[ REGRESSION FAILURE ]: ${err.message}`;
+                errorBox.innerText = `Forecast Error: ${err.message}`;
                 errorBox.style.display = 'block';
             });
         }
 
-        function showLoading(show, text = "Compiling calculation sequence...") {
+        function showLoading(show, text = "Computing analysis outputs...") {
             const overlay = document.getElementById('spinner-overlay');
             const txt = document.getElementById('spinner-text');
             if (show) {
